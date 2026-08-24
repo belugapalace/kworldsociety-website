@@ -1,184 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KWorld Society — Arcade</title>
-<link rel="icon" type="image/png" href="assets/img/crest.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KWorld Society</title>
+<meta name="description" content="A members' network for K-culture across four continents. Headquarters in Seoul, ten live chapters, five cities onboarding — founded in Athens, 2014.">
+<link rel="icon" href="assets/img/crest.png">
+<meta property="og:title" content="KWorld Society">
+<meta property="og:description" content="Ten chapters, one membership. K-culture across Europe, MENA, Asia and the Americas.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <div class="brandmark">
-      <img class="crest " src="assets/img/crest.png" alt="KWorld Society crest">
-      <div class="brand-name"><span>KWORLD</span><span>SOCIETY</span></div>
-    </div>
-    <div class="navlinks">
-      <a href="#community">Community</a>
-      <a href="#chapters">Chapters</a>
-      <a href="#proof">Moments</a>
-      <a href="#membership">Membership</a>
-    </div>
-    <a href="#membership" class="btn btn-outline">Member Login</a>
+<!-- ── NAV ─────────────────────────────────────────────── -->
+<nav class="site-nav">
+  <a class="nb" href="#top">
+    <img class="crest-ink" src="assets/img/crest.png" alt="">
+    <span>KWorld Society</span>
+  </a>
+  <div class="nl">
+    <a href="#community">Community</a>
+    <a href="#chapters">Chapters</a>
+    <a href="#moments">Moments</a>
+    <a href="#membership">Membership</a>
+    <a class="ncta" href="#membership">Member Login</a>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-deco"></div>
-  <div class="wrap hero-inner">
-    <div class="hero-tags">
-      <span class="eyebrow">Est. Athens 2014</span>
-      <span class="eyebrow alt">Founding chapter open</span>
-    </div>
-    <div class="crest-wrap">
-      <img class="" src="assets/img/crest.png" alt="KWorld Society crest">
-    </div>
-    <h1 class="display"><span class="l1">KWORLD</span><span class="l2">SOCIETY</span></h1>
-    <p class="hero-sub">The home for K-culture across Europe, Turkey, MENA and North Africa. One membership. Presales, meetups, and local access — built by the community that's been doing this since 2014.</p>
-    <div class="hero-cta">
-      <a href="#membership" class="btn btn-solid">Join the society</a>
-      <a href="#chapters" class="btn btn-outline">Find your chapter</a>
-    </div>
-    <div class="hero-readout">
-      <span>Members <b>12,400+</b></span>
-      <span>Chapters <b>11</b></span>
-      <span>Running <b>11 yrs</b></span>
-      <span>Status <b>Active</b></span>
-    </div>
+<!-- ── HERO ────────────────────────────────────────────── -->
+<header class="hero" id="top">
+  <div class="corner c-tl mono">37.9838&deg;N<br>23.7275&deg;E</div>
+  <div class="corner c-tr mono">EST.<br>MMXIV</div>
+  <div class="corner c-bl mono">X CHAPTERS</div>
+  <div class="corner c-br mono">ATHENS &mdash; ORIGIN</div>
+
+  <h1 class="sr-only">KWorld Society</h1>
+
+  <div class="eyeb rv">
+    <span class="eyeb-r"></span>
+    <span class="eyeb-t">Est. Athens 2014 &mdash; Founding chapter open</span>
+    <span class="eyeb-r"></span>
+  </div>
+
+  <div class="crest-hero rv" role="img" aria-label="KWorld Society crest"></div>
+
+  <div class="h-rule rv"></div>
+
+  <p class="h-copy rv">The home for K-culture across four continents. One membership. Presales, meetups and local access &mdash; built by the community that&rsquo;s been doing this since 2014.</p>
+
+  <div class="h-cta rv">
+    <a class="b-fill" href="#membership">Join the society</a>
+    <a class="b-line" href="#chapters">Find your chapter</a>
+  </div>
+
+  <div class="hstats rv">
+    <div class="hstat"><span class="hs-l">Members</span><span class="hs-n mono">12,400+</span></div>
+    <div class="hstat"><span class="hs-l">Chapters</span><span class="hs-n mono">10</span></div>
+    <div class="hstat"><span class="hs-l">Onboarding</span><span class="hs-n mono is-live">5</span></div>
+    <div class="hstat"><span class="hs-l">Running</span><span class="hs-n mono">11 yrs</span></div>
   </div>
 </header>
 
-<section id="community">
-  <div class="wrap">
-    <div class="quote-panel">
-      <p>"KWorld Society started as one team in Athens getting Korean artists in front of European audiences. Eleven years later, it's <span>a members' network across eleven cities.</span>"</p>
-      <p class="quote-foot">Not another fan page — a community built with fans</p>
+<!-- ── CITY STRIP ──────────────────────────────────────── -->
+<div class="strip"><div class="strip-in" id="strip"></div></div>
+
+<!-- ── COMMUNITY ───────────────────────────────────────── -->
+<section class="mf" id="community">
+  <div class="mf-g">
+    <div class="mf-l rv">Community</div>
+    <div>
+      <blockquote class="mf-t rv">KWorld Society started as one team in Athens getting Korean artists in front of European audiences. Eleven years later, it&rsquo;s the <em class="gleam">cultural connective tissue</em> of a members&rsquo; network across four continents.</blockquote>
+      <div class="mf-s rv">Not another fan page &mdash; a community built with fans</div>
     </div>
   </div>
 </section>
 
-<section id="roles">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">How the society is built</span>
-      <h2>Four ways in</h2>
-      <p>Every member starts somewhere. Most start as fans. Some grow into something more.</p>
+<!-- ── FOUR WAYS IN ────────────────────────────────────── -->
+<section class="ways">
+  <div class="ways-head rv">
+    <div class="eyeb"><span class="eyeb-r"></span><span class="eyeb-t">How the society is built</span></div>
+    <h2 class="sec-t">Four ways in</h2>
+    <p class="sec-s">Every member starts somewhere. Most start as fans. Some grow into something more.</p>
+  </div>
+  <ol class="ways-grid rv">
+    <li class="way">
+      <span class="way-n mono">01</span>
+      <h3 class="way-t">Communities</h3>
+      <p class="way-d">Local fan groups and hubs for meetups and presale coordination.</p>
+    </li>
+    <li class="way">
+      <span class="way-n mono">02</span>
+      <h3 class="way-t">Creators</h3>
+      <p class="way-d">Regional voices covering comebacks and culture, first on partnerships.</p>
+    </li>
+    <li class="way">
+      <span class="way-n mono">03</span>
+      <h3 class="way-t">Ambassadors</h3>
+      <p class="way-d">Members who represent their city on-site, first in line for artist meets.</p>
+    </li>
+    <li class="way">
+      <span class="way-n mono">04</span>
+      <h3 class="way-t">Operators</h3>
+      <p class="way-d">Venue and production partners bringing events to life on the ground.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ── CHAPTERS / THE ORRERY ───────────────────────────── -->
+<section class="orr" id="chapters">
+  <div class="orr-head rv">
+    <div class="eyeb"><span class="eyeb-r"></span><span class="eyeb-t">One network, four continents</span><span class="eyeb-r"></span></div>
+    <h2 class="sec-t">Chapters</h2>
+    <p class="sec-s">Headquarters in Seoul, ten live chapters, and five cities onboarding. Membership benefits are tuned to where you live &mdash; presale windows, local meetups and partner discounts vary by chapter. Turn the sphere, or select from the registry.</p>
+  </div>
+
+  <div class="stage rv">
+    <canvas id="globe" width="600" height="620" aria-label="Interactive globe showing KWorld Society chapter cities"></canvas>
+    <div class="label" id="label">
+      <div class="label-rule"></div>
+      <div class="label-city" id="l-city">The Society</div>
+      <div class="label-reg" id="l-reg">Eleven chapters &mdash; four regions</div>
+      <div class="label-coord mono" id="l-coord">Select a chapter</div>
+      <div class="label-st" id="l-st" hidden><span class="label-d" id="l-dot"></span><span id="l-stt"></span></div>
     </div>
-    <div class="role-grid">
-      <div class="role"><span class="rnum">01</span><h3>Communities</h3><p>Local fan groups and hubs for meetups and presale coordination.</p></div>
-      <div class="role"><span class="rnum">02</span><h3>Creators</h3><p>Regional voices covering comebacks and culture, first on partnerships.</p></div>
-      <div class="role"><span class="rnum">03</span><h3>Ambassadors</h3><p>Members who represent their city on-site, first in line for artist meets.</p></div>
-      <div class="role"><span class="rnum">04</span><h3>Operators</h3><p>Venue and production partners bringing events to life on the ground.</p></div>
+  </div>
+
+  <div class="reg-head rv"><span class="eyeb-t">Chapter registry</span></div>
+  <div class="cidx rv" id="cidx"></div>
+</section>
+
+<!-- ── MOMENTS ─────────────────────────────────────────── -->
+<section class="mom" id="moments">
+  <div class="mom-head rv">
+    <div class="eyeb"><span class="eyeb-r"></span><span class="eyeb-t">Receipts, not promises</span></div>
+    <h2 class="sec-t">Moments the community made</h2>
+  </div>
+  <div class="mom-grid rv">
+    <div class="mom-i">
+      <div class="mom-n gleam slow s1">24HRS</div>
+      <div class="mom-w">Jay B &middot; Athens</div>
+      <p class="mom-d">Sold out within a day, first solo show in Greece.</p>
+    </div>
+    <div class="mom-i">
+      <div class="mom-n gleam slow s2">1,600+</div>
+      <div class="mom-w">Xlov &middot; Athens</div>
+      <p class="mom-d">Biggest K-pop concert staged in Greece.</p>
+    </div>
+    <div class="mom-i">
+      <div class="mom-n gleam slow s3">Sold Out</div>
+      <div class="mom-w">Stray Kids</div>
+      <p class="mom-d">Tickets and merchandise both sold out.</p>
+    </div>
+    <div class="mom-i">
+      <div class="mom-n gleam slow s4">44M+</div>
+      <div class="mom-w">BamBam</div>
+      <p class="mom-d">Views on a Greece-filmed music video.</p>
     </div>
   </div>
 </section>
 
-<section id="chapters">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">One network, eleven cities</span>
-      <h2>Chapters</h2>
-      <p>Membership benefits are tuned to where you live — presale windows, local meetups, and partner discounts vary by chapter.</p>
-    </div>
-    <div class="terminal">
-      <div class="terminal-head"><span>Chapter registry</span><span class="th-dots"><i></i><i></i><i></i></span></div>
-      <div class="chapter-row"><span class="idx">01</span><span class="name">ATHENS</span><span class="region">Greece · Europe</span><span class="status founding"><span class="led"></span>Founding</span></div>
-      <div class="chapter-row"><span class="idx">02</span><span class="name">ISTANBUL</span><span class="region">Turkey</span><span class="status active"><span class="led"></span>Active</span></div>
-      <div class="chapter-row"><span class="idx">03</span><span class="name">PARIS</span><span class="region">France · Europe</span><span class="status active"><span class="led"></span>Active</span></div>
-      <div class="chapter-row"><span class="idx">04</span><span class="name">ROME</span><span class="region">Italy · Europe</span><span class="status active"><span class="led"></span>Active</span></div>
-      <div class="chapter-row"><span class="idx">05</span><span class="name">LONDON</span><span class="region">United Kingdom · Europe</span><span class="status active"><span class="led"></span>Active</span></div>
-      <div class="chapter-row"><span class="idx">06</span><span class="name">LYON</span><span class="region">France · Europe</span><span class="status active"><span class="led"></span>Active</span></div>
-      <div class="chapter-row"><span class="idx">07</span><span class="name">MUNICH</span><span class="region">Germany · Europe</span><span class="status active"><span class="led"></span>Active</span></div>
-      <div class="chapter-row"><span class="idx">08</span><span class="name">STOCKHOLM</span><span class="region">Sweden · Europe</span><span class="status active"><span class="led"></span>Active</span></div>
-      <div class="chapter-row"><span class="idx">09</span><span class="name">DUBAI</span><span class="region">UAE · MENA</span><span class="status active"><span class="led"></span>Active</span></div>
-      <div class="chapter-row"><span class="idx">10</span><span class="name">RIYADH</span><span class="region">Saudi Arabia · MENA</span><span class="status active"><span class="led"></span>Active</span></div>
-      <div class="chapter-row"><span class="idx">11</span><span class="name">CASABLANCA</span><span class="region">Morocco · North Africa</span><span class="status active"><span class="led"></span>New</span></div>
+<!-- ── PRESS ───────────────────────────────────────────── -->
+<section class="press">
+  <div class="press-g">
+    <figure class="press-fig rv">
+      <img src="assets/img/press-photo.webp" width="1638" height="2048" alt="Backstage with Cortis" loading="lazy">
+      <figcaption class="label">
+        <div class="label-rule"></div>
+        <div class="label-city">Cortis</div>
+        <div class="label-reg">Backstage &mdash; personal archive</div>
+      </figcaption>
+    </figure>
+    <div class="press-b rv">
+      <div class="eyeb"><span class="eyeb-r"></span><span class="eyeb-t">Press</span></div>
+      <h2 class="sec-t">Featured in the press</h2>
+      <p class="press-d">Cortis&rsquo;s Juhoon, Seonghyeon and Keonho on Dazed Korea, styled in Dior. Click through to read the full feature.</p>
+      <div class="press-meta mono">Dazed Korea &mdash; Cortis + Fashion</div>
+      <a class="b-line" href="https://dazedkorea.com/2026/07/13/%eb%8f%99%ea%b8%b0%eb%b6%80%ec%97%ac/" target="_blank" rel="noopener noreferrer">Read the story &#8599;</a>
     </div>
   </div>
 </section>
 
-<section id="proof">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Receipts, not promises</span>
-      <h2>Moments the community made</h2>
+<!-- ── MEMBERSHIP ──────────────────────────────────────── -->
+<section class="mem" id="membership">
+  <div class="mem-g">
+    <div class="rv">
+      <div class="eyeb"><span class="eyeb-r"></span><span class="eyeb-t">Membership</span></div>
+      <h2 class="mem-h">Your society,<br><em class="gleam offset">your constellation</em></h2>
+      <p class="mem-p">Sign in for your chapter&rsquo;s presale alerts, meetup invites and event history. New here? Creating an account takes under a minute &mdash; and it&rsquo;s free.</p>
+      <a class="b-fill" href="#membership-form">Create free account</a>
     </div>
-    <div class="proof-grid">
-      <div class="proof-cell"><div class="proof-num pa">24HRS</div><div class="proof-label">Jay B · Athens</div><div class="proof-detail">Sold out within a day, first solo show in Greece.</div></div>
-      <div class="proof-cell"><div class="proof-num pb">1,600+</div><div class="proof-label">Xlov · Athens</div><div class="proof-detail">Biggest K-pop concert staged in Greece.</div></div>
-      <div class="proof-cell"><div class="proof-num pc">SOLD OUT</div><div class="proof-label">Stray Kids</div><div class="proof-detail">Tickets and merchandise both sold out.</div></div>
-      <div class="proof-cell"><div class="proof-num pa">44M+</div><div class="proof-label">BamBam</div><div class="proof-detail">Views on a Greece-filmed music video.</div></div>
+
+    <div class="mem-panel rv">
+      <div class="eyeb" style="margin-bottom:32px;"><span class="eyeb-r"></span><span class="eyeb-t">Join the society</span></div>
+      <form id="membership-form" action="https://formspree.io/f/xaewzzgk" method="POST">
+        <label class="fl" for="f-name">Name</label>
+        <input class="fi" id="f-name" type="text" name="name" placeholder="Your name" autocomplete="name" required>
+
+        <label class="fl" for="f-email">Email address</label>
+        <input class="fi" id="f-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+
+        <label class="fl" for="f-city">City</label>
+        <input class="fi" id="f-city" type="text" name="city" placeholder="Athens, Paris, Dubai&hellip;" autocomplete="address-level2">
+
+        <button class="fs" type="submit">Apply for membership</button>
+      </form>
+      <p class="fn">We&rsquo;ll send a confirmation to your email &mdash; applications are reviewed manually for now.</p>
+      <p class="fok" id="form-status" role="status"></p>
     </div>
   </div>
 </section>
 
-<section id="press">
-  <div class="wrap">
-    <div class="press-feature">
-      <a href="https://dazedkorea.com/2026/07/13/%eb%8f%99%ea%b8%b0%eb%b6%80%ec%97%ac/" target="_blank" rel="noopener" class="press-photo">
-        <img src="assets/img/press-photo.webp" alt="Backstage with Cortis">
-        <div class="press-photo-label">Backstage with Cortis · read the story on Dazed Korea ↗</div>
-      </a>
-      <div class="press-copy">
-        <span class="eyebrow alt">Press</span>
-        <div class="press-masthead">Featured<br>in the <span class="accent">press</span></div>
-        <div class="press-stickers">
-          <a href="https://dazedkorea.com/2026/07/13/%eb%8f%99%ea%b8%b0%eb%b6%80%ec%97%ac/" target="_blank" rel="noopener" class="sticker">Dazed Korea ↗</a>
-          <span class="sticker">Cortis</span>
-          <span class="sticker">+ Fashion</span>
-        </div>
-        <p class="desc">Cortis's Juhoon, Seonghyeon, and Keonho on Dazed Korea, styled in Dior. Click through to read the full feature.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="membership">
-  <div class="wrap">
-    <div class="membership-grid">
-      <div>
-        <span class="eyebrow">Membership</span>
-        <h3>Your society, your account</h3>
-        <p>Sign in for your chapter's presale alerts, meetup invites, and event history. New here? Creating an account takes under a minute — and it's free.</p>
-        <div class="hero-cta left"><a href="#membership-form" class="btn btn-solid">Create free account</a></div>
-      </div>
-      <div class="login-panel">
-        <div class="lm-title">Join the society</div>
-        <form id="membership-form" action="https://formspree.io/f/xaewzzgk" method="POST">
-          <input class="login-field" type="text" name="name" placeholder="Name" required>
-          <input class="login-field" type="email" name="email" placeholder="Email address" required>
-          <input class="login-field" type="text" name="city" placeholder="City">
-          <button class="btn btn-solid full" type="submit">Apply for membership</button>
-        </form>
-        <p class="login-note">We'll send a confirmation to your email — applications are reviewed manually for now.</p>
-        <p class="login-success" id="membership-form-status"></p>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- ── FOOTER ──────────────────────────────────────────── -->
 <footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="brandmark">
-        <img class="crest " src="assets/img/crest.png" alt="KWorld Society crest">
-        <div class="brand-name"><span>KWORLD</span><span>SOCIETY</span></div>
-      </div>
-      <div class="footer-cols">
-        <div class="fcol"><h4>Society</h4><a href="#community">About</a><a href="#chapters">Chapters</a><a href="#proof">Moments</a></div>
-        <div class="fcol"><h4>Membership</h4><a href="#membership">Sign in</a><a href="#membership">Create account</a></div>
-        <div class="fcol"><h4>Connect</h4><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">Contact</a></div>
-      </div>
+  <div class="foot-g">
+    <div class="foot-brand">
+      <img class="crest-ink" src="assets/img/crest.png" alt="">
+      <span class="fbn">KWorld Society</span>
+      <p class="foot-tag">Community intelligence for K-culture expansion.</p>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 KWorld Society — Community intelligence for K-culture expansion</span>
-      <span>Part of a wider cultural infrastructure network</span>
-    </div>
+    <nav class="foot-col" aria-label="Society">
+      <h2 class="foot-h">Society</h2>
+      <a href="#community">About</a>
+      <a href="#chapters">Chapters</a>
+      <a href="#moments">Moments</a>
+      <a href="#membership">Membership</a>
+    </nav>
+    <nav class="foot-col" aria-label="Account">
+      <h2 class="foot-h">Account</h2>
+      <a href="#membership">Sign in</a>
+      <a href="#membership">Create account</a>
+    </nav>
+    <nav class="foot-col" aria-label="Connect">
+      <h2 class="foot-h">Connect</h2>
+      <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer">TikTok</a>
+      <a href="#membership">Contact</a>
+    </nav>
+  </div>
+  <div class="foot-base">
+    <span class="fc">&copy; 2026 KWorld Society &mdash; Community intelligence for K-culture expansion</span>
+    <span class="fc">Part of a wider cultural infrastructure network</span>
   </div>
 </footer>
 
