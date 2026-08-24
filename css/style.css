@@ -546,6 +546,67 @@ button{font:inherit;}
 .press-d{font-size:13.5px;line-height:2.05;color:var(--ink-2);margin-top:20px;max-width:44ch;}
 .press-meta{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:22px 0 30px;}
 
+/* ── SHOP PREVIEW ─────────────────────────────────────────
+   A lookbook rail rather than a grid: five portrait shots stacked
+   vertically would add ~2000px of page height. The product ground is
+   almost exactly --stone, so the shots float without frames. */
+.shop{
+  background:var(--stone);
+  border-top:1px solid var(--rule-soft);
+  padding:104px 0 96px;
+  overflow:hidden;
+}
+.shop-head{max-width:640px;margin:0 auto 52px;padding:0 var(--pad);text-align:center;}
+.shop-head .eyeb{justify-content:center;}
+.shop-head .sec-s{margin-left:auto;margin-right:auto;}
+.shop-dash{
+  background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent;
+  padding:0 .06em;
+}
+
+.rail{
+  display:flex;gap:26px;
+  padding:4px var(--pad) 30px;
+  overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(138,107,40,.42) transparent;
+}
+.rail::-webkit-scrollbar{height:3px;}
+.rail::-webkit-scrollbar-track{background:rgba(21,20,26,.06);}
+.rail::-webkit-scrollbar-thumb{background:rgba(138,107,40,.42);}
+.rail:focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
+
+.rail-i{
+  flex:0 0 auto;width:330px;margin:0;
+  scroll-snap-align:start;
+}
+.rail-i img{
+  width:100%;height:auto;display:block;
+  background:var(--stone-2);
+}
+.rail-i figcaption{
+  display:grid;grid-template-columns:auto 1fr;gap:2px 14px;
+  align-items:baseline;margin-top:18px;
+  padding-top:14px;border-top:1px solid var(--rule-soft);
+}
+.item-n{grid-row:1 / span 2;font-size:10px;color:var(--gold);letter-spacing:.14em;}
+.item-t{
+  font-stretch:112%;font-variation-settings:'wdth' 112;font-weight:500;
+  font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);
+}
+.item-s{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:500;}
+
+.shop-foot{
+  display:flex;align-items:center;justify-content:center;gap:26px;
+  flex-wrap:wrap;margin-top:34px;padding:0 var(--pad);
+}
+.shop-note{
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;
+}
+
 /* ── MEMBERSHIP ───────────────────────────────────────── */
 .mem{
   background:var(--stone-2);border-top:1px solid var(--rule-soft);
@@ -678,6 +739,8 @@ em.gleam.offset{animation-delay:-7s;}
   .plate{grid-template-columns:1fr;gap:22px;justify-items:start;}
   .plate-media{width:min(66vw,240px);}
   .press-g,.mem-g{grid-template-columns:1fr;gap:44px;}
+  .rail-i{width:270px;}
+  .shop-foot{flex-direction:column;gap:18px;}
   .foot-g{grid-template-columns:1fr 1fr;gap:40px;}
   .foot-brand{grid-column:1 / -1;}
 }
