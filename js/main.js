@@ -57,11 +57,13 @@
     var el = document.getElementById('cidx');
     if (!el) return;
     el.innerHTML = CITIES.map(function (c, i) {
-      return '<button class="crow" type="button" data-i="' + i + '">' +
+      return '<button class="crow" type="button" data-i="' + i + '" style="--i:' + i + '">' +
              '<span class="cn mono">' + String(i + 1).padStart(2, '0') + '</span>' +
-             '<span><span class="cc">' + c.name + '</span>' +
+             '<span class="cbody"><span class="cc">' + c.name + '</span>' +
              '<span class="cr">' + c.region + '</span></span>' +
-             '<span class="ct" data-t="' + c.tier + '">' + c.status + '</span>' +
+             '<span class="ct" data-t="' + c.tier + '">' +
+               '<i class="lamp" aria-hidden="true"></i>' + c.status +
+             '</span>' +
              '</button>';
     }).join('');
   })();
@@ -111,6 +113,10 @@
     var rotY = 0, rotX = 0;
     var tY = null, tX = null;
     var drag = false, lastX = 0, lastY = 0;
+    /* Distance travelled since pointer-down, so a drag is never
+       mistaken for a click on whatever star it happens to end over. */
+    var travel = 0;
+    var CLICK_SLOP = 6;
     var selected = null, hovered = null;
 
     /* Unit vector for a lat/lng, north up. */
@@ -516,15 +522,17 @@
 
     /* ── Pointer ────────────────────────────────────────── */
     cv.addEventListener('mousedown', function (e) {
-      drag = true; tY = tX = null;
+      drag = true; travel = 0; tY = tX = null;
       var p = pointerPos(e); lastX = p.x; lastY = p.y;
     });
 
     cv.addEventListener('mousemove', function (e) {
       var p = pointerPos(e);
       if (drag) {
-        rotY += (p.x - lastX) * 0.006;
-        rotX += (p.y - lastY) * 0.004;
+        var dx = p.x - lastX, dy = p.y - lastY;
+        travel += Math.abs(dx) + Math.abs(dy);
+        rotY += dx * 0.006;
+        rotX += dy * 0.004;
         rotX = Math.max(-0.72, Math.min(0.72, rotX));
         lastX = p.x; lastY = p.y;
         hovered = null;
@@ -537,6 +545,7 @@
     cv.addEventListener('mouseup', function (e) {
       if (!drag) return;
       drag = false;
+      if (travel > CLICK_SLOP) return;   /* that was a drag, not a click */
       var p = pointerPos(e);
       var c = hitTest(p.x, p.y);
       if (c) select(c, true);
@@ -545,20 +554,33 @@
     cv.addEventListener('mouseleave', function () { drag = false; hovered = null; });
 
     cv.addEventListener('touchstart', function (e) {
-      drag = true; tY = tX = null;
+      drag = true; travel = 0; tY = tX = null;
       var p = pointerPos(e); lastX = p.x; lastY = p.y;
     }, { passive: true });
 
     cv.addEventListener('touchmove', function (e) {
       if (!drag) return;
       var p = pointerPos(e);
-      rotY += (p.x - lastX) * 0.006;
-      rotX += (p.y - lastY) * 0.004;
+      var dx = p.x - lastX, dy = p.y - lastY;
+      travel += Math.abs(dx) + Math.abs(dy);
+      rotY += dx * 0.006;
+      rotX += dy * 0.004;
       rotX = Math.max(-0.72, Math.min(0.72, rotX));
       lastX = p.x; lastY = p.y;
     }, { passive: true });
 
-    cv.addEventListener('touchend', function () { drag = false; });
+    /* A tap (not a swipe) selects the chapter under the finger. */
+    cv.addEventListener('touchend', function (e) {
+      if (!drag) return;
+      drag = false;
+      if (travel > CLICK_SLOP) return;
+      var t = e.changedTouches && e.changedTouches[0];
+      if (!t) return;
+      var r = cv.getBoundingClientRect();
+      var c = hitTest((t.clientX - r.left) * (cv.width / r.width),
+                      (t.clientY - r.top) * (cv.height / r.height));
+      if (c) select(c, true);
+    });
 
     /* Open on the founding chapter. */
     select(ATHENS, false);
