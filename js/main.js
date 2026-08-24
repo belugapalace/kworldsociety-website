@@ -618,6 +618,38 @@
     });
   })();
 
+  /* ── Featured film ────────────────────────────────────────
+     preload="none" plus a data-src means not a byte of video is
+     fetched until the band is actually scrolled to. Playback pauses
+     again once it leaves the viewport. */
+  (function () {
+    var v = document.getElementById('film-v');
+    if (!v) return;
+
+    /* Reduced motion: leave the poster in place, never autoplay. */
+    if (REDUCED) return;
+
+    if (!('IntersectionObserver' in window)) {
+      v.src = v.dataset.src;
+      v.play().catch(function () {});
+      return;
+    }
+
+    var loaded = false;
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          if (!loaded) { v.src = v.dataset.src; loaded = true; }
+          v.play().catch(function () {});
+        } else if (loaded) {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+
+    obs.observe(v);
+  })();
+
   /* ── Scroll reveals ───────────────────────────────────── */
   (function () {
     var items = document.querySelectorAll('.rv');
