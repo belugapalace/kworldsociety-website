@@ -15,6 +15,14 @@
 
   --indigo:#241F4A;
 
+  /* The one dark band — a near-black carrying the globe's indigo cast. */
+  --dark:#16131F;
+  --dark-2:#100E18;
+  --dark-ink:#EFE9DC;
+  --dark-ink-2:#A9A08C;
+  --dark-rule:rgba(214,188,126,0.16);
+  --dark-edge:rgba(214,188,126,0.24);
+
   --gold:#8A6B28;
   --gold-2:#B99544;
   --gold-lt:#D6BC7E;
@@ -30,6 +38,12 @@
     #8A6B28 0%,  #8A6B28 33%,
     #B99544 40%, #D9C288 46%, #EFE0B4 50%, #D9C288 54%, #B99544 60%,
     #8A6B28 67%, #8A6B28 100%);
+
+  /* Brighter base — deep gold goes muddy against near-black. */
+  --leaf-sheen-dark:linear-gradient(96deg,
+    #B99544 0%,  #B99544 33%,
+    #D9C288 40%, #EFE0B4 46%, #FFF8E6 50%, #EFE0B4 54%, #D9C288 60%,
+    #B99544 67%, #B99544 100%);
 
   --pad:54px;
 }
@@ -296,25 +310,37 @@ button{font:inherit;}
 .cr{font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;font-weight:500;}
 .ct{font-size:7.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);font-weight:600;white-space:nowrap;}
 
-/* ── MOMENTS ──────────────────────────────────────────── */
+/* ── MOMENTS — the one dark band ──────────────────────── */
 .mom{
-  background:var(--stone-2);border-top:1px solid var(--rule-soft);
-  padding:104px var(--pad) 110px;
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(36,31,74,.55) 0%, rgba(36,31,74,0) 60%),
+    linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);
+  border-top:1px solid var(--dark-edge);
+  border-bottom:1px solid var(--dark-edge);
+  padding:106px var(--pad) 112px;
+  color:var(--dark-ink);
 }
-.mom-head{max-width:1180px;margin:0 auto 56px;}
+.mom-head{max-width:1180px;margin:0 auto 56px;position:relative;z-index:1;}
+.mom .eyeb-t{color:var(--gold-lt);}
+.mom .eyeb-r{background:var(--dark-rule);}
+.mom .sec-t{color:var(--dark-ink);}
+
 .mom-grid{
-  max-width:1180px;margin:0 auto;
+  max-width:1180px;margin:0 auto;position:relative;z-index:1;
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 46px;
 }
-.mom-i{border-top:1px solid var(--rule);padding-top:26px;}
+.mom-i{border-top:1px solid var(--dark-rule);padding-top:26px;}
 .mom-n{
   font-stretch:125%;font-variation-settings:'wdth' 125;font-weight:300;
   font-size:clamp(24px,2.9vw,40px);letter-spacing:.02em;text-transform:uppercase;
   background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent;
   line-height:1.05;
 }
-.mom-w{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);margin-top:16px;font-weight:600;}
-.mom-d{font-size:12.5px;line-height:1.9;color:var(--ink-2);margin-top:10px;}
+/* Brighter sheen so the figures read against near-black. */
+.mom .gleam{background-image:var(--leaf-sheen-dark);}
+.mom-w{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--dark-ink);margin-top:16px;font-weight:600;}
+.mom-d{font-size:12.5px;line-height:1.9;color:var(--dark-ink-2);margin-top:10px;}
 
 /* ── PRESS ────────────────────────────────────────────── */
 .press{border-top:1px solid var(--rule-soft);padding:110px var(--pad);}
