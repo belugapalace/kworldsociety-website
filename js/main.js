@@ -618,36 +618,39 @@
     });
   })();
 
-  /* ── Featured film ────────────────────────────────────────
+  /* ── Deferred video ───────────────────────────────────────
      preload="none" plus a data-src means not a byte of video is
-     fetched until the band is actually scrolled to. Playback pauses
-     again once it leaves the viewport. */
+     fetched until the block is actually scrolled to. Playback pauses
+     again once it leaves the viewport. Applies to every video on the
+     page that opts in with data-src. */
   (function () {
-    var v = document.getElementById('film-v');
-    if (!v) return;
+    var vids = document.querySelectorAll('video[data-src]');
+    if (!vids.length) return;
 
-    /* Reduced motion: leave the poster in place, never autoplay. */
+    /* Reduced motion: leave the poster in place, never fetch or play. */
     if (REDUCED) return;
 
     if (!('IntersectionObserver' in window)) {
-      v.src = v.dataset.src;
-      v.play().catch(function () {});
+      Array.prototype.forEach.call(vids, function (v) {
+        v.src = v.dataset.src;
+        v.play().catch(function () {});
+      });
       return;
     }
 
-    var loaded = false;
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
+        var v = en.target;
         if (en.isIntersecting) {
-          if (!loaded) { v.src = v.dataset.src; loaded = true; }
+          if (!v.src) { v.src = v.dataset.src; }
           v.play().catch(function () {});
-        } else if (loaded) {
+        } else if (v.src) {
           v.pause();
         }
       });
     }, { threshold: 0.25 });
 
-    obs.observe(v);
+    Array.prototype.forEach.call(vids, function (v) { obs.observe(v); });
   })();
 
   /* ── Scroll reveals ───────────────────────────────────── */

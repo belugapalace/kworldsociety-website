@@ -484,6 +484,41 @@ button{font:inherit;}
 .mom-w{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--dark-ink);margin-top:auto;padding-top:18px;font-weight:600;}
 .mom-d{font-size:12.5px;line-height:1.9;color:var(--dark-ink-2);margin-top:10px;}
 
+/* ── ARCHIVE PLATE ────────────────────────────────────────
+   Portrait footage held as an object with a wall label beside it,
+   the same treatment the globe and the press photo get. Sits on the
+   dark band because the footage itself is dark. */
+.plate{
+  position:relative;z-index:1;
+  max-width:1180px;margin:76px auto 0;
+  display:grid;grid-template-columns:auto 1fr;gap:44px;align-items:center;
+  padding-top:34px;border-top:1px solid var(--dark-rule);
+}
+.plate-media{
+  position:relative;width:268px;aspect-ratio:9/16;
+  overflow:hidden;flex:none;
+  border:1px solid var(--dark-rule);
+  background:#0A0810;
+}
+.plate-v{width:100%;height:100%;object-fit:cover;display:block;}
+.plate-cap{max-width:44ch;}
+.plate-rule{width:46px;height:1px;background:var(--gold-rule);margin-bottom:18px;}
+.plate-eyebrow{
+  font-size:8.5px;letter-spacing:.38em;text-transform:uppercase;
+  color:var(--gold-lt);font-weight:600;margin-bottom:16px;
+}
+.plate-t{
+  font-stretch:125%;font-variation-settings:'wdth' 125;font-weight:400;
+  font-size:clamp(22px,2.6vw,34px);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--dark-ink);line-height:1.1;
+}
+.plate-s{
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--dark-ink-2);margin-top:12px;font-weight:500;
+}
+.plate-m{font-size:10.5px;letter-spacing:.08em;color:var(--gold-lt);margin-top:16px;line-height:1.8;}
+.plate-d{font-size:12.5px;line-height:1.95;color:var(--dark-ink-2);margin-top:20px;}
+
 /* ── PRESS ────────────────────────────────────────────── */
 .press{border-top:1px solid var(--rule-soft);padding:110px var(--pad);}
 .press-g{
@@ -628,6 +663,8 @@ em.gleam.offset{animation-delay:-7s;}
   .way:nth-child(1),.way:nth-child(2){border-bottom:1px solid var(--rule-soft);}
   .cidx{grid-template-columns:1fr;gap:0;}
   .mom-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 34px;}
+  .plate{grid-template-columns:1fr;gap:28px;justify-items:start;margin-top:56px;}
+  .plate-media{width:min(72vw,260px);}
   .press-g,.mem-g{grid-template-columns:1fr;gap:44px;}
   .foot-g{grid-template-columns:1fr 1fr;gap:40px;}
   .foot-brand{grid-column:1 / -1;}
