@@ -630,6 +630,15 @@
     /* Reduced motion: leave the poster in place, never fetch or play. */
     if (REDUCED) return;
 
+    /* Metered or slow connections keep the posters too. The clips are
+       several megabytes each; on a 2G connection or with Data Saver on,
+       that cost is not worth an ambient loop. */
+    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (conn) {
+      var slow = conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g';
+      if (conn.saveData === true || slow) return;
+    }
+
     if (!('IntersectionObserver' in window)) {
       Array.prototype.forEach.call(vids, function (v) {
         v.src = v.dataset.src;
