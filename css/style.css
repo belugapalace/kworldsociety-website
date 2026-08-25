@@ -559,16 +559,14 @@ button{font:inherit;}
 .shop-head{max-width:640px;margin:0 auto 52px;padding:0 var(--pad);text-align:center;}
 .shop-head .eyeb{justify-content:center;}
 .shop-head .sec-s{margin-left:auto;margin-right:auto;}
-.shop-dash{
-  background:var(--leaf);-webkit-background-clip:text;background-clip:text;color:transparent;
-  padding:0 .06em;
-}
-
 .rail{
   display:flex;gap:26px;
   padding:4px var(--pad) 30px;
   overflow-x:auto;overscroll-behavior-x:contain;
   scroll-snap-type:x mandatory;
+  /* Without this, mandatory snapping aligns item 01 to the scrollport
+     edge and eats the padding, clipping the first caption. */
+  scroll-padding-inline:var(--pad);
   -webkit-overflow-scrolling:touch;
   scrollbar-width:thin;
   scrollbar-color:rgba(138,107,40,.42) transparent;
