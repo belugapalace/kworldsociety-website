@@ -546,6 +546,49 @@ button{font:inherit;}
 .press-d{font-size:13.5px;line-height:2.05;color:var(--ink-2);margin-top:20px;max-width:44ch;}
 .press-meta{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:22px 0 30px;}
 
+/* ── COMMUNITY NEWS ───────────────────────────────────────
+   Coverage of the network itself, as distinct from the press feature
+   above it. Landscape and full width against that section's portrait
+   two-column, so the two never read as the same block twice. */
+.cnews{
+  background:var(--stone-2);
+  border-top:1px solid var(--rule-soft);
+  padding:100px var(--pad) 96px;
+}
+.cnews-head{max-width:900px;margin:0 auto 44px;}
+.cnews-fig{max-width:900px;margin:0 auto;}
+.cnews-fig img{
+  width:100%;height:auto;display:block;
+  border:1px solid var(--rule-soft);
+  background:var(--stone);
+}
+.cnews-cap{
+  display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+  margin-top:16px;padding-top:13px;border-top:1px solid var(--rule-soft);
+}
+.cnews-cap-t{
+  font-stretch:112%;font-variation-settings:'wdth' 112;font-weight:500;
+  font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);
+}
+.cnews-cap-s{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:500;}
+
+.cnews-body{max-width:900px;margin:44px auto 0;}
+.cnews-meta{
+  display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--rule);
+}
+.cnews-outlet{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+.cnews-link{
+  font-size:9px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;
+  color:var(--ink);border-bottom:1px solid var(--rule);padding-bottom:3px;
+  transition:color .3s,border-color .3s;
+}
+.cnews-link:hover{color:var(--gold);border-color:var(--gold);}
+.cnews-d{
+  font-size:14px;line-height:2.05;color:var(--ink-2);
+  margin-top:22px;max-width:62ch;
+}
+
 /* ── SHOP PREVIEW ─────────────────────────────────────────
    A lookbook rail rather than a grid: five portrait shots stacked
    vertically would add ~2000px of page height. The product ground is
