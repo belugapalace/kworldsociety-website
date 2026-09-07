@@ -599,7 +599,6 @@ button{font:inherit;}
 }
 .cov-link:hover{color:var(--gold);border-color:var(--gold);}
 .cov-d{font-size:14px;line-height:2.05;color:var(--ink-2);margin-top:18px;max-width:62ch;}
-.cov-slim .cov-d{font-size:13px;}
 
 /* ── SHOP PREVIEW ─────────────────────────────────────────
    A lookbook rail rather than a grid: five portrait shots stacked
