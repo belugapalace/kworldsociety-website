@@ -570,13 +570,14 @@ button{font:inherit;}
 .cov-main{min-width:0;}
 
 .cov-fig{margin:0 0 24px;}
+/* Both media types share one 640x360 frame: the video's native encode
+   size, and the photo re-cropped to match, so entries line up. */
 .cov-fig img,.cov-v{
-  width:100%;height:auto;display:block;
+  width:100%;max-width:640px;height:auto;display:block;
+  aspect-ratio:16/9;object-fit:cover;
   border:1px solid var(--rule-soft);
   background:var(--stone);
 }
-/* Capped to the encode's native 640 so the frame never upscales. */
-.cov-v{aspect-ratio:16/9;object-fit:cover;max-width:640px;}
 .cov-cap{
   display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
   margin-top:13px;
