@@ -555,39 +555,51 @@ button{font:inherit;}
   border-top:1px solid var(--rule-soft);
   padding:100px var(--pad) 96px;
 }
-.cnews-head{max-width:900px;margin:0 auto 44px;}
-.cnews-fig{max-width:900px;margin:0 auto;}
-.cnews-fig img{
+.cnews-head{max-width:900px;margin:0 auto 52px;}
+.cnews-head .sec-s{max-width:52ch;}
+
+/* Each mention is a numbered entry. Media is optional, so a text-only
+   mention drops in as one more row without a layout of its own. */
+.cov{
+  max-width:900px;margin:0 auto;
+  display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 20px;
+  padding:38px 0;border-top:1px solid var(--rule-soft);
+}
+.cov:first-of-type{border-top:1px solid var(--rule);}
+.cov-n{font-size:11px;color:var(--gold);letter-spacing:.14em;padding-top:3px;}
+.cov-main{min-width:0;}
+
+.cov-fig{margin:0 0 24px;}
+.cov-fig img,.cov-v{
   width:100%;height:auto;display:block;
   border:1px solid var(--rule-soft);
   background:var(--stone);
 }
-.cnews-cap{
-  display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
-  margin-top:16px;padding-top:13px;border-top:1px solid var(--rule-soft);
+/* Capped to the encode's native 640 so the frame never upscales. */
+.cov-v{aspect-ratio:16/9;object-fit:cover;max-width:640px;}
+.cov-cap{
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  margin-top:13px;
 }
-.cnews-cap-t{
+.cov-cap-t{
   font-stretch:112%;font-variation-settings:'wdth' 112;font-weight:500;
   font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);
 }
-.cnews-cap-s{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:500;}
+.cov-cap-s{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:500;}
 
-.cnews-body{max-width:900px;margin:44px auto 0;}
-.cnews-meta{
+.cov-meta{
   display:flex;align-items:baseline;justify-content:space-between;gap:20px;
-  flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--rule);
+  flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid var(--rule-soft);
 }
-.cnews-outlet{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
-.cnews-link{
+.cov-outlet{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+.cov-link{
   font-size:9px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;
   color:var(--ink);border-bottom:1px solid var(--rule);padding-bottom:3px;
-  transition:color .3s,border-color .3s;
+  transition:color .3s,border-color .3s;white-space:nowrap;
 }
-.cnews-link:hover{color:var(--gold);border-color:var(--gold);}
-.cnews-d{
-  font-size:14px;line-height:2.05;color:var(--ink-2);
-  margin-top:22px;max-width:62ch;
-}
+.cov-link:hover{color:var(--gold);border-color:var(--gold);}
+.cov-d{font-size:14px;line-height:2.05;color:var(--ink-2);margin-top:18px;max-width:62ch;}
+.cov-slim .cov-d{font-size:13px;}
 
 /* ── SHOP PREVIEW ─────────────────────────────────────────
    A lookbook rail rather than a grid: five portrait shots stacked
