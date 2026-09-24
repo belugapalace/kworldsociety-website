@@ -657,11 +657,19 @@
     if (btn) btn.addEventListener('click', dismiss);
     el.addEventListener('click', function (e) { if (e.target === el) dismiss(); });
     document.addEventListener('keydown', onKey);
-    window.addEventListener('wheel', dismiss, { passive: true });
-    window.addEventListener('touchmove', dismiss, { passive: true });
+
+    /* Scroll/swipe dismiss arms after a beat, not immediately — otherwise
+       leftover trackpad momentum from the page load itself can close the
+       greeting before its entrance animation even finishes. Click and
+       Escape stay instant, since those are always deliberate. */
+    window.setTimeout(function () {
+      if (done) return;
+      window.addEventListener('wheel', dismiss, { passive: true });
+      window.addEventListener('touchmove', dismiss, { passive: true });
+    }, 1200);
 
     /* Falls away on its own if left alone. */
-    window.setTimeout(dismiss, REDUCED ? 3200 : 6500);
+    window.setTimeout(dismiss, REDUCED ? 6000 : 13000);
   })();
 
   /* ── Deferred video ───────────────────────────────────────
