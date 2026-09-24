@@ -618,6 +618,47 @@
     });
   })();
 
+  /* ── Chuseok greeting ─────────────────────────────────────
+     Shown once per session. Anything the visitor does dismisses it, and
+     it never blocks the site: if scripting fails the panel stays hidden,
+     since it only ever becomes visible from here. */
+  (function () {
+    var el = document.getElementById('chuseok');
+    if (!el) return;
+
+    var SEEN = 'kws-chuseok-2026';
+    try {
+      if (sessionStorage.getItem(SEEN)) return;
+      sessionStorage.setItem(SEEN, '1');
+    } catch (e) { /* private mode: show it, just don't remember */ }
+
+    el.hidden = false;
+    document.body.style.overflow = 'hidden';
+
+    var done = false;
+    function dismiss() {
+      if (done) return;
+      done = true;
+      el.classList.add('is-out');
+      document.body.style.overflow = '';
+      window.setTimeout(function () { el.hidden = true; }, 600);
+      document.removeEventListener('keydown', onKey);
+      window.removeEventListener('wheel', dismiss);
+      window.removeEventListener('touchmove', dismiss);
+    }
+    function onKey() { dismiss(); }
+
+    var btn = document.getElementById('chuseok-x');
+    if (btn) btn.addEventListener('click', dismiss);
+    el.addEventListener('click', function (e) { if (e.target === el) dismiss(); });
+    document.addEventListener('keydown', onKey);
+    window.addEventListener('wheel', dismiss, { passive: true });
+    window.addEventListener('touchmove', dismiss, { passive: true });
+
+    /* Falls away on its own if left alone. */
+    window.setTimeout(dismiss, REDUCED ? 3200 : 6500);
+  })();
+
   /* ── Deferred video ───────────────────────────────────────
      preload="none" plus a data-src means not a byte of video is
      fetched until the block is actually scrolled to. Playback pauses

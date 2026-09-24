@@ -109,6 +109,71 @@ button{font:inherit;}
 .b-line{color:var(--ink);background:none;border:1px solid var(--rule);}
 .b-line:hover{border-color:var(--gold);color:var(--gold);}
 
+/* ── CHUSEOK GREETING ─────────────────────────────────────
+   Shows once per session, dismisses on click, key or scroll. */
+.chuseok{
+  position:fixed;inset:0;z-index:300;
+  display:flex;align-items:center;justify-content:center;
+  padding:40px 24px;text-align:center;
+  /* Short viewports (landscape phones) otherwise push the dismiss
+     button below the fold with no way to reach it. */
+  overflow-y:auto;overscroll-behavior:contain;
+  background:
+    radial-gradient(120% 90% at 50% 38%, rgba(36,31,74,.55) 0%, rgba(36,31,74,0) 62%),
+    linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);
+  animation:ckIn .7s ease both;
+}
+.chuseok[hidden]{display:none;}
+.chuseok.is-out{animation:ckOut .55s ease both;pointer-events:none;}
+@keyframes ckIn{from{opacity:0;}to{opacity:1;}}
+@keyframes ckOut{from{opacity:1;}to{opacity:0;visibility:hidden;}}
+
+.chuseok-in{max-width:520px;}
+.chuseok-art{
+  width:min(52vw,250px);height:auto;display:block;margin:0 auto 38px;
+  animation:ckRise 1.5s cubic-bezier(.2,.7,.3,1) both .15s;
+}
+@keyframes ckRise{from{opacity:0;transform:translateY(26px) scale(.94);}to{opacity:1;transform:none;}}
+.ck-moon{transform-origin:160px 160px;animation:ckGlow 6s ease-in-out infinite;}
+@keyframes ckGlow{0%,100%{opacity:.92;}50%{opacity:1;}}
+.ck-ring{transform-origin:160px 160px;animation:ckSpin 70s linear infinite;}
+@keyframes ckSpin{to{transform:rotate(360deg);}}
+
+.chuseok-ko{
+  font-size:clamp(26px,5vw,40px);font-weight:500;letter-spacing:.06em;
+  line-height:1.4;
+  background:var(--leaf-sheen-dark);-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:ckUp .9s cubic-bezier(.2,.7,.3,1) both .5s;
+}
+.chuseok-en{
+  font-stretch:125%;font-variation-settings:'wdth' 125;font-weight:300;
+  text-transform:uppercase;font-size:clamp(15px,2.4vw,22px);letter-spacing:.34em;
+  color:var(--dark-ink);margin-top:20px;
+  animation:ckUp .9s cubic-bezier(.2,.7,.3,1) both .66s;
+}
+.chuseok-sub{
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--dark-ink-2);margin-top:26px;font-weight:500;
+  animation:ckUp .9s cubic-bezier(.2,.7,.3,1) both .82s;
+}
+@keyframes ckUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+
+.chuseok-x{
+  margin-top:44px;padding:14px 34px;
+  background:none;border:1px solid rgba(214,188,126,.45);
+  color:var(--dark-ink);font-family:inherit;
+  font-size:9px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:background .3s,border-color .3s,color .3s;
+  animation:ckUp .9s cubic-bezier(.2,.7,.3,1) both .98s;
+}
+.chuseok-x:hover{background:rgba(214,188,126,.12);border-color:var(--gold-lt);color:#FFF6E2;}
+
+@media (prefers-reduced-motion:reduce){
+  .chuseok,.chuseok-art,.chuseok-ko,.chuseok-en,.chuseok-sub,.chuseok-x,
+  .ck-moon,.ck-ring{animation:none !important;}
+  .chuseok.is-out{display:none;}
+}
+
 /* ── NAV ──────────────────────────────────────────────── */
 .site-nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
@@ -498,6 +563,8 @@ button{font:inherit;}
   display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:start;
   margin:0;
 }
+/* The newest night runs full width. */
+.plate-wide{grid-column:1 / -1;}
 .plate-media{
   position:relative;width:190px;aspect-ratio:9/16;
   overflow:hidden;flex:none;
