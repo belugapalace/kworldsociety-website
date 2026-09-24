@@ -619,12 +619,17 @@
   })();
 
   /* ── Chuseok greeting ─────────────────────────────────────
-     Shown once per session. Anything the visitor does dismisses it, and
-     it never blocks the site: if scripting fails the panel stays hidden,
-     since it only ever becomes visible from here. */
+     Shown once per session, through Chuseok itself. Cut off at
+     29 Sep 00:00 UTC+14 (= 28 Sep 12:00 UTC), the moment the last
+     timezone on Earth (UTC-12) finishes 28 September — so every
+     timezone gets the full holiday before it retires on its own.
+     Anything the visitor does dismisses it, and it never blocks the
+     site: if scripting fails the panel stays hidden, since it only
+     ever becomes visible from here. */
   (function () {
     var el = document.getElementById('chuseok');
     if (!el) return;
+    if (Date.now() > Date.UTC(2026, 8, 28, 12, 0, 0)) return; // month is 0-indexed: 8 = September
 
     var SEEN = 'kws-chuseok-2026';
     try {
