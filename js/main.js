@@ -618,6 +618,38 @@
     });
   })();
 
+  /* ── Promo popup: Stray Kids live viewing giveaway ───────
+     Once per session. Retires itself at 8 Nov 12:00 UTC, when the last
+     timezone (UTC-12) finishes 7 November. No auto-dismiss — it's an
+     offer, so it waits for the visitor: X, backdrop click or Escape. */
+  (function () {
+    var el = document.getElementById('promo');
+    if (!el) return;
+    if (Date.now() > Date.UTC(2026, 10, 8, 12, 0, 0)) return; // 10 = November
+
+    var SEEN = 'kws-promo-skz-2026';
+    try {
+      if (sessionStorage.getItem(SEEN)) return;
+      sessionStorage.setItem(SEEN, '1');
+    } catch (e) {}
+
+    el.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var x = document.getElementById('promo-x');
+
+    function close() {
+      el.classList.add('is-out');
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKey);
+      window.setTimeout(function () { el.hidden = true; }, 400);
+    }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+
+    if (x) { x.addEventListener('click', close); x.focus({ preventScroll: true }); }
+    el.addEventListener('click', function (e) { if (e.target === el) close(); });
+    document.addEventListener('keydown', onKey);
+  })();
+
   /* ── Chuseok greeting ─────────────────────────────────────
      Shown once per session, through Chuseok itself. Cut off at
      29 Sep 00:00 UTC+14 (= 28 Sep 12:00 UTC), the moment the last
