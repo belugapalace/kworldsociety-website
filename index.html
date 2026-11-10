@@ -13,6 +13,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<script>
+/* Seasonal theme: on until 27 Dec 12:00 UTC (26 Dec over in every
+   timezone), then the site returns to normal by itself.
+   Preview overrides: ?theme=xmas forces it on, ?theme=off forces it off. */
+(function () {
+  var q = /[?&]theme=(\w+)/.exec(location.search), f = q && q[1];
+  var on = f ? f === 'xmas' : Date.now() < Date.UTC(2026, 11, 27, 12, 0, 0);
+  if (!on) return;
+  document.documentElement.classList.add('xmas');
+  var h = document.head;
+  [['preconnect','https://fonts.googleapis.com'],
+   ['stylesheet','https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap'],
+   ['stylesheet','css/theme-xmas.css']].forEach(function (l) {
+    var e = document.createElement('link'); e.rel = l[0]; e.href = l[1]; h.appendChild(e);
+  });
+})();
+</script>
 </head>
 <body>
 

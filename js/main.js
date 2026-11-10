@@ -232,6 +232,87 @@
       }
     }
 
+    /* Seasonal skin — set by the head script, gone after 26 Dec. */
+    var XMAS = document.documentElement.classList.contains('xmas');
+
+    /* Santa's sleigh on a tilted orbit. Back half is drawn before the
+       sphere so the planet hides it; front half after, crossing over. */
+    function drawSanta(t, front) {
+      var a = t * 0.42;
+      var depth = Math.sin(a);                     // >0 = toward viewer
+      if ((depth > 0) !== front) return;
+      var x = cx + R * 1.05 * Math.cos(a);
+      var y = cy - R * 0.15 + R * 0.38 * depth;
+      var goingLeft = depth > 0;                   // front half travels right-to-left
+      var sc = front ? 1 : 0.72;
+      ctx.save();
+      ctx.globalAlpha = front ? 1 : 0.75;
+      ctx.translate(x, y + Math.sin(t * 3) * 3);   // a little bob
+      ctx.scale(goingLeft ? sc : -sc, sc);
+      /* sparkle trail behind the sleigh */
+      for (var k = 1; k <= 6; k++) {
+        ctx.beginPath();
+        ctx.arc(26 + k * 11, 6 + Math.sin(t * 6 + k) * 3, 3.2 - k * 0.4, 0, Math.PI * 2);
+        ctx.fillStyle = k % 2 ? 'rgba(255,209,102,' + (0.9 - k * 0.13) + ')'
+                              : 'rgba(255,255,255,' + (0.9 - k * 0.13) + ')';
+        ctx.fill();
+      }
+      /* Hand-drawn so it looks the same everywhere — colour emoji
+         aren't available on every device. Faces left; mirrored above. */
+      ctx.scale(1.25, 1.25);
+      ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      function blob(fn, fill, stroke) {
+        ctx.beginPath(); fn();
+        ctx.fillStyle = fill; ctx.fill();
+        if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1.6; ctx.stroke(); }
+      }
+      function deer(dx, rudolph) {
+        ctx.strokeStyle = '#6B3B1E'; ctx.lineWidth = 2;
+        ctx.beginPath();                                       // legs
+        ctx.moveTo(dx - 6, 3); ctx.lineTo(dx - 9, 11);
+        ctx.moveTo(dx + 6, 3); ctx.lineTo(dx + 9, 11);
+        ctx.stroke();
+        blob(function () { ctx.ellipse(dx, 0, 11, 6, 0, 0, Math.PI * 2); }, '#9C5B32', '#fff');
+        blob(function () { ctx.arc(dx - 12, -7, 5, 0, Math.PI * 2); }, '#9C5B32', '#fff');
+        ctx.strokeStyle = '#6B3B1E'; ctx.lineWidth = 1.6;      // antlers
+        ctx.beginPath();
+        ctx.moveTo(dx - 11, -11); ctx.lineTo(dx - 8, -18); ctx.lineTo(dx - 5, -20);
+        ctx.moveTo(dx - 9, -15); ctx.lineTo(dx - 13, -19);
+        ctx.stroke();
+        blob(function () { ctx.arc(dx - 17, -6, rudolph ? 2.6 : 1.6, 0, Math.PI * 2); },
+             rudolph ? '#FF2D3D' : '#3A1B2C');
+      }
+      /* harness */
+      ctx.strokeStyle = '#FFD166'; ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.moveTo(-18, -2); ctx.lineTo(-58, -2); ctx.stroke();
+      deer(-34, false);
+      deer(-62, true);
+      /* sleigh runner */
+      ctx.strokeStyle = '#FFD166'; ctx.lineWidth = 2.4;
+      ctx.beginPath(); ctx.moveTo(22, 11); ctx.lineTo(-16, 11);
+      ctx.quadraticCurveTo(-24, 11, -22, 3); ctx.stroke();
+      /* gift sack */
+      blob(function () { ctx.arc(16, -11, 8, 0, Math.PI * 2); }, '#2BA84A', '#fff');
+      /* Santa */
+      blob(function () { ctx.arc(3, -11, 8, 0, Math.PI * 2); }, '#E63946', '#fff');
+      blob(function () { ctx.arc(1, -21, 5.5, 0, Math.PI * 2); }, '#FFD6B8');
+      blob(function () { ctx.ellipse(0, -16, 5.5, 4.5, 0, 0, Math.PI); }, '#FFFFFF');
+      blob(function () {                                         // hat
+        ctx.moveTo(-5, -24); ctx.lineTo(7, -24); ctx.lineTo(11, -34); ctx.closePath();
+      }, '#E63946');
+      blob(function () { ctx.rect(-6, -26, 14, 3); }, '#FFFFFF');
+      blob(function () { ctx.arc(11, -34, 2.6, 0, Math.PI * 2); }, '#FFFFFF');
+      /* sleigh body */
+      blob(function () {
+        ctx.moveTo(-18, -4); ctx.lineTo(22, -4); ctx.lineTo(24, 7);
+        ctx.quadraticCurveTo(24, 9, 20, 9); ctx.lineTo(-12, 9);
+        ctx.quadraticCurveTo(-20, 9, -18, -4); ctx.closePath();
+      }, '#E63946', '#fff');
+      ctx.strokeStyle = '#FFD166'; ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.moveTo(-15, 1); ctx.lineTo(21, 1); ctx.stroke();
+      ctx.restore();
+    }
+
     function render() {
       var t = performance.now() * 0.001;
       var pulse = Math.sin(t * 1.8) * 0.5 + 0.5;
@@ -262,18 +343,33 @@
       ctx.restore();
 
       /* Armillary rings — back halves. */
-      drawRing(R * 1.17,  0.36, false, 'rgba(138,107,40,0.34)', 1, true);
-      drawRing(R * 1.30, -1.16, false, 'rgba(138,107,40,0.18)', 1, false);
+      drawRing(R * 1.17,  0.36, false, XMAS ? 'rgba(230,57,70,0.45)' : 'rgba(138,107,40,0.34)', XMAS ? 2 : 1, true);
+      drawRing(R * 1.30, -1.16, false, XMAS ? 'rgba(43,168,74,0.35)' : 'rgba(138,107,40,0.18)', XMAS ? 2 : 1, false);
+      if (XMAS && !REDUCED) drawSanta(t, false);
 
       /* Sphere. */
       var sg = ctx.createRadialGradient(cx - R * 0.32, cy - R * 0.34, 0, cx, cy, R);
-      sg.addColorStop(0, '#3a3363');
-      sg.addColorStop(0.45, '#1d1838');
-      sg.addColorStop(1, '#0b0917');
+      sg.addColorStop(0,    XMAS ? '#C8F0FF' : '#3a3363');
+      sg.addColorStop(0.45, XMAS ? '#5DB8FF' : '#1d1838');
+      sg.addColorStop(1,    XMAS ? '#2C6FD6' : '#0b0917');
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.fillStyle = sg;
       ctx.fill();
+
+      if (XMAS) {
+        ctx.save();
+        ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.clip();
+        ctx.beginPath();
+        ctx.ellipse(cx, cy - R * 0.98, R * 0.95, R * 0.28, 0, 0, Math.PI * 2);
+        for (var sc = -4; sc <= 4; sc++) {                    // scalloped snow edge
+          ctx.moveTo(cx + sc * R * 0.2 + R * 0.12, cy - R * 0.72);
+          ctx.arc(cx + sc * R * 0.2, cy - R * 0.72, R * 0.12, 0, Math.PI * 2);
+        }
+        ctx.fillStyle = 'rgba(255,255,255,0.92)';
+        ctx.fill();
+        ctx.restore();
+      }
 
       /* Constellation lines. */
       for (i = 0; i < LINES.length; i++) {
@@ -441,7 +537,7 @@
       /* Limb shading, so the orb reads as a solid object on light ground. */
       var lb = ctx.createRadialGradient(cx, cy, R * 0.72, cx, cy, R);
       lb.addColorStop(0, 'rgba(0,0,0,0)');
-      lb.addColorStop(1, 'rgba(0,0,0,0.5)');
+      lb.addColorStop(1, XMAS ? 'rgba(10,30,80,0.35)' : 'rgba(0,0,0,0.5)');
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.fillStyle = lb;
@@ -449,13 +545,14 @@
 
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(214,188,126,0.28)';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = XMAS ? 'rgba(255,255,255,0.7)' : 'rgba(214,188,126,0.28)';
+      ctx.lineWidth = XMAS ? 3 : 1;
       ctx.stroke();
 
       /* Armillary rings — front halves. */
-      drawRing(R * 1.17,  0.36, true, 'rgba(138,107,40,0.55)', 1.1, true);
-      drawRing(R * 1.30, -1.16, true, 'rgba(138,107,40,0.30)', 1, false);
+      drawRing(R * 1.17,  0.36, true, XMAS ? 'rgba(230,57,70,0.85)' : 'rgba(138,107,40,0.55)', XMAS ? 2.4 : 1.1, true);
+      drawRing(R * 1.30, -1.16, true, XMAS ? 'rgba(43,168,74,0.7)' : 'rgba(138,107,40,0.30)', XMAS ? 2 : 1, false);
+      if (XMAS && !REDUCED) drawSanta(t, true);
 
       /* A slow sway that keeps the sphere alive without losing the network. */
       if (!drag && tY === null && !REDUCED) {
@@ -616,6 +713,51 @@
         if (btn) { btn.disabled = false; btn.textContent = 'Apply for membership'; }
       });
     });
+  })();
+
+  /* ── Snowfall (Christmas theme only) ──────────────────────
+     A light canvas of drifting flakes; skipped for reduced motion and
+     paused while the tab is hidden. */
+  (function () {
+    if (!document.documentElement.classList.contains('xmas') || REDUCED) return;
+    var c = document.createElement('canvas');
+    c.className = 'xmas-snow';
+    c.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(c);
+    var x = c.getContext('2d'), w, h, flakes = [];
+    function size() {
+      var d = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth; h = window.innerHeight;
+      c.width = w * d; c.height = h * d; c.style.width = w + 'px'; c.style.height = h + 'px';
+      x.setTransform(d, 0, 0, d, 0, 0);
+    }
+    size();
+    window.addEventListener('resize', size);
+    var n = w < 600 ? 34 : 70;
+    for (var i = 0; i < n; i++) {
+      flakes.push({ x: Math.random() * w, y: Math.random() * h,
+                    r: Math.random() * 2.4 + 1, s: Math.random() * 0.6 + 0.35,
+                    p: Math.random() * Math.PI * 2,
+                    /* mostly snow, with a few candy-coloured sprinkles so it
+                       reads on the light sections too */
+                    c: ['#FFFFFF','#FFFFFF','#CDEBFF','#FFC2D1','#BFF0CF','#FFE59A'][i % 6] });
+    }
+    function tick() {
+      if (!document.hidden) {
+        x.clearRect(0, 0, w, h);
+        x.shadowColor = 'rgba(90,120,180,0.45)';
+        x.shadowBlur = 2;
+        for (var i = 0; i < flakes.length; i++) {
+          var f = flakes[i];
+          f.y += f.s; f.p += 0.012; f.x += Math.sin(f.p) * 0.35;
+          if (f.y > h + 5) { f.y = -5; f.x = Math.random() * w; }
+          x.fillStyle = f.c;
+          x.beginPath(); x.arc(f.x, f.y, f.r, 0, Math.PI * 2); x.fill();
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    tick();
   })();
 
   /* ── Promo popup: Stray Kids live viewing giveaway ───────
