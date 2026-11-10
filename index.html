@@ -14,18 +14,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <script>
-/* Seasonal theme: on until 27 Dec 12:00 UTC (26 Dec over in every
-   timezone), then the site returns to normal by itself.
-   Preview overrides: ?theme=xmas forces it on, ?theme=off forces it off. */
+/* Seasonal themes, switched by date — nothing to remove by hand:
+     now      → 1 Dec 00:00 UTC   K-pop mode
+     1 Dec    → 27 Dec 12:00 UTC  Christmas (26 Dec over in every timezone)
+     after    → the normal site
+   Preview any of them: ?theme=kpop, ?theme=xmas, ?theme=off */
 (function () {
-  var q = /[?&]theme=(\w+)/.exec(location.search), f = q && q[1];
-  var on = f ? f === 'xmas' : Date.now() < Date.UTC(2026, 11, 27, 12, 0, 0);
-  if (!on) return;
-  document.documentElement.classList.add('xmas');
+  var q = /[?&]theme=(\w+)/.exec(location.search), f = q && q[1], now = Date.now();
+  var theme = f ? (f === 'off' ? null : f)
+            : now < Date.UTC(2026, 11, 1)            ? 'kpop'
+            : now < Date.UTC(2026, 11, 27, 12, 0, 0) ? 'xmas'
+            : null;
+  var FONTS = {
+    kpop: 'family=Bagel+Fat+One&family=DotGothic16&family=Nunito:wght@400;600;700;800',
+    xmas: 'family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700'
+  };
+  if (!FONTS[theme]) return;
+  document.documentElement.classList.add(theme);
   var h = document.head;
-  [['preconnect','https://fonts.googleapis.com'],
-   ['stylesheet','https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap'],
-   ['stylesheet','css/theme-xmas.css']].forEach(function (l) {
+  [['preconnect', 'https://fonts.googleapis.com'],
+   ['stylesheet', 'https://fonts.googleapis.com/css2?' + FONTS[theme] + '&display=swap'],
+   ['stylesheet', 'css/theme-' + theme + '.css']].forEach(function (l) {
     var e = document.createElement('link'); e.rel = l[0]; e.href = l[1]; h.appendChild(e);
   });
 })();

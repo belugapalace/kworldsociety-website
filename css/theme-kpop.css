@@ -1,0 +1,271 @@
+/* ============================================================
+   KWorld Society — K-POP MODE (temporary, until 1 Dec)
+   90s / Y2K bubblegum: holographic pastels, bubble type, pixel
+   labels, sticker cards with hard shadows. Scoped to html.kpop,
+   which the head script only sets while this theme is scheduled.
+   ============================================================ */
+
+html.kpop{
+  --stone:#FFF1FA;            /* bubblegum */
+  --stone-2:#EAF6FF;          /* baby blue */
+  --stone-3:#F3E8FF;
+
+  --ink:#3B1458;              /* grape */
+  --ink-2:#6A3E8C;
+  --ink-3:#A47BC4;
+  --ink-4:#D9C2EC;
+
+  --indigo:#FF3FA4;
+
+  --dark:#2B0F4C;
+  --dark-2:#1C0836;
+  --dark-ink:#FFF4FC;
+  --dark-ink-2:#E2C9FF;
+  --dark-rule:rgba(255,126,185,.32);
+  --dark-edge:rgba(122,211,255,.5);
+
+  --gold:#FF3FA4;             /* hot pink */
+  --gold-2:#33B6F5;           /* baby blue, a step deeper */
+  --gold-lt:#FFE45E;          /* sunshine */
+
+  --rule:rgba(59,20,88,.18);
+  --rule-soft:rgba(59,20,88,.10);
+  --gold-rule:rgba(255,63,164,.5);
+
+  --holo:linear-gradient(110deg,#FF9ED8 0%,#C9A7FF 22%,#7AD3FF 44%,#B8F28A 64%,#FFE45E 82%,#FF9ED8 100%);
+  --leaf:var(--holo);
+  --leaf-sheen:linear-gradient(96deg,
+    #FF3FA4 0%, #FF3FA4 33%,
+    #C9A7FF 40%, #7AD3FF 45%, #FFFFFF 50%, #B8F28A 55%, #FFE45E 60%,
+    #FF3FA4 67%, #FF3FA4 100%);
+  --leaf-sheen-dark:linear-gradient(96deg,
+    #FFE45E 0%, #FFE45E 33%,
+    #FF9ED8 40%, #FFFFFF 50%, #7AD3FF 60%,
+    #FFE45E 67%, #FFE45E 100%);
+
+  --sticker:3px 3px 0 #3B1458;
+  --sticker-lg:6px 6px 0 #3B1458;
+
+  /* a little heart cursor */
+  cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M14 24s-9-5.6-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.4-9 12-9 12z' fill='%23FF3FA4' stroke='%233B1458' stroke-width='2'/%3E%3C/svg%3E") 14 14, auto;
+  accent-color:#FF3FA4;
+}
+html.kpop ::selection{background:#FF9ED8;color:#3B1458;}
+html.kpop body{
+  font-family:'Nunito',-apple-system,BlinkMacSystemFont,sans-serif;
+  /* 90s notebook grid */
+  background-image:
+    linear-gradient(rgba(201,167,255,.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,167,255,.18) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+
+/* ── type: bubble display, pixel labels ───────────────────── */
+html.kpop .mono{font-family:'DotGothic16',monospace;font-weight:400;letter-spacing:.06em;}
+
+html.kpop .sec-t,
+html.kpop .mf-t,
+html.kpop .label-city,
+html.kpop .cc,
+html.kpop .way-t,
+html.kpop .mom-n,
+html.kpop .plate-t,
+html.kpop .film-t,
+html.kpop .mem-h,
+html.kpop .item-t,
+html.kpop .nb span,
+html.kpop .fbn,
+html.kpop .hs-n,
+html.kpop .cov-cap-t,
+html.kpop .nl a,
+html.kpop .ncta{
+  font-family:'Bagel Fat One','Nunito',sans-serif;
+  font-weight:400;font-variation-settings:normal;font-stretch:100%;
+}
+html.kpop .eyeb-t,
+html.kpop .item-s,
+html.kpop .cr,
+html.kpop .ct,
+html.kpop .hs-l,
+html.kpop .label-reg,
+html.kpop .plate-s,
+html.kpop .mom-w,
+html.kpop .cov-cap-s,
+html.kpop .fc,
+html.kpop .foot-h{font-family:'DotGothic16',monospace;font-weight:400;letter-spacing:.14em;}
+
+/* section titles: chunky sticker lettering */
+html.kpop .sec-t{
+  color:#FF3FA4;letter-spacing:.02em;
+  text-shadow:3px 3px 0 #3B1458, 6px 6px 0 #7AD3FF;
+  background:none;-webkit-background-clip:border-box;background-clip:border-box;
+}
+html.kpop .mom .sec-t{color:#FFE45E;text-shadow:3px 3px 0 #FF3FA4, 6px 6px 0 #33B6F5;}
+html.kpop .mf-t{letter-spacing:0;line-height:1.45;}
+html.kpop .mem-h,html.kpop .film-t{letter-spacing:.02em;}
+html.kpop .plate-t,html.kpop .label-city,html.kpop .cc,html.kpop .way-t,html.kpop .item-t{letter-spacing:.06em;}
+html.kpop .nl a{letter-spacing:.08em !important;color:var(--ink);}
+
+/* ── the crest: holographic shine ─────────────────────────── */
+html.kpop .crest-hero{
+  background-image:linear-gradient(102deg,
+    #3B1458 0%, #3B1458 34%,
+    #FF3FA4 39%, #C9A7FF 43%, #7AD3FF 46%, #FFFFFF 50%,
+    #B8F28A 54%, #FFE45E 57%, #FF3FA4 61%,
+    #3B1458 66%, #3B1458 100%);
+  animation-duration:5s;
+}
+
+/* ── hero: holographic wash, sparkles, a K-POP MODE sticker ── */
+html.kpop .hero{
+  background:
+    radial-gradient(38% 30% at 12% 20%, rgba(255,158,216,.45), transparent 70%),
+    radial-gradient(34% 30% at 88% 24%, rgba(122,211,255,.45), transparent 70%),
+    radial-gradient(40% 32% at 22% 88%, rgba(184,242,138,.38), transparent 70%),
+    radial-gradient(36% 30% at 84% 84%, rgba(201,167,255,.45), transparent 70%),
+    transparent;
+  overflow:hidden;
+}
+html.kpop .hero::before{
+  content:'케이팝 모드 ON ♡';
+  position:absolute;top:168px;right:6%;z-index:2;
+  padding:10px 18px;border-radius:999px;
+  font-family:'Bagel Fat One',sans-serif;font-size:15px;letter-spacing:.04em;
+  color:#3B1458;background:#FFE45E;
+  border:3px solid #3B1458;box-shadow:var(--sticker);
+  transform:rotate(8deg);
+  animation:kpWobble 2.6s ease-in-out infinite;
+}
+html.kpop .hero::after{
+  content:'✦  ♡  ✧  ★  ✦';
+  position:absolute;left:6%;top:30%;
+  font-size:28px;letter-spacing:.5em;color:#FF3FA4;
+  writing-mode:vertical-rl;opacity:.75;
+  animation:kpFloat 4s ease-in-out infinite;
+}
+@keyframes kpWobble{0%,100%{transform:rotate(8deg) scale(1);}50%{transform:rotate(-4deg) scale(1.06);}}
+@keyframes kpFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
+/* ── nav: checkerboard ribbon ──────────────────────────────── */
+html.kpop .site-nav{background:rgba(255,241,250,.9);}
+html.kpop .site-nav::after{
+  content:'';position:absolute;left:0;right:0;bottom:-10px;height:10px;pointer-events:none;
+  background:
+    conic-gradient(#FF9ED8 25%, #fff 0 50%, #FF9ED8 0 75%, #fff 0) 0 0/20px 20px;
+  border-bottom:2px solid #3B1458;
+}
+
+/* ── city strip: a 90s ticker ─────────────────────────────── */
+html.kpop .strip{background:#FF3FA4;border-color:#3B1458;}
+html.kpop .strip span{font-family:'Bagel Fat One',sans-serif;color:#fff;letter-spacing:.12em;}
+html.kpop .strip b{font-size:0;}
+html.kpop .strip b::before{content:' ♡ ';font-size:14px;color:#FFE45E;}
+
+/* ── stickers: thick outlines and hard shadows ─────────────── */
+html.kpop .b-fill,
+html.kpop .b-line,
+html.kpop .ncta,
+html.kpop .fs,
+html.kpop .film-cta,
+html.kpop .promo-cta,
+html.kpop .chuseok-x{
+  border-radius:999px;border:3px solid #3B1458 !important;
+  box-shadow:var(--sticker);
+  transition:transform .15s,box-shadow .15s,background .2s,color .2s;
+}
+html.kpop .b-fill{background:#FF3FA4;color:#fff;}
+html.kpop .b-line{background:#fff;color:#3B1458;}
+html.kpop .ncta{background:#FFE45E;color:#3B1458 !important;}
+html.kpop .fs{background:#FF3FA4;color:#fff;}
+html.kpop .film-cta{background:#fff;color:#3B1458;}
+html.kpop .b-fill:hover,
+html.kpop .b-line:hover,
+html.kpop .ncta:hover,
+html.kpop .fs:hover,
+html.kpop .film-cta:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #3B1458;background:#7AD3FF;color:#3B1458 !important;}
+
+html.kpop .plate-media,
+html.kpop .press-fig img,
+html.kpop .rail-i img,
+html.kpop .cov-fig img,
+html.kpop .cov-v,
+html.kpop .promo-link img{
+  border-radius:20px;border:3px solid #3B1458 !important;
+  box-shadow:var(--sticker-lg);overflow:hidden;
+}
+html.kpop .rail-i:nth-child(odd) img{transform:rotate(-1.5deg);}
+html.kpop .rail-i:nth-child(even) img{transform:rotate(1.5deg);}
+html.kpop .rail-i img{transition:transform .25s;}
+html.kpop .rail-i:hover img{transform:rotate(0) scale(1.03);}
+
+html.kpop .way{
+  background:#fff;border:3px solid #3B1458 !important;border-radius:22px;
+  box-shadow:var(--sticker-lg);
+}
+html.kpop .ways-grid{border-top:none;gap:16px;}
+html.kpop .way:nth-child(1){background:#FFE3F3;}
+html.kpop .way:nth-child(2){background:#E3F4FF;}
+html.kpop .way:nth-child(3){background:#EFFDE3;}
+html.kpop .way:nth-child(4){background:#FFF8D6;}
+
+/* ── the join form as a 90s desktop window ─────────────────── */
+html.kpop .mem-panel{
+  position:relative;padding-top:78px;border-radius:14px;
+  border:3px solid #3B1458 !important;box-shadow:var(--sticker-lg);background:#fff;
+}
+html.kpop .mem-panel::before{
+  content:'♡ join_the_society.exe';
+  position:absolute;left:0;right:0;top:0;height:40px;
+  display:flex;align-items:center;padding:0 16px;
+  font-family:'DotGothic16',monospace;font-size:14px;letter-spacing:.06em;color:#fff;
+  background:linear-gradient(90deg,#FF3FA4,#C9A7FF 60%,#7AD3FF);
+  border-bottom:3px solid #3B1458;border-radius:10px 10px 0 0;
+}
+html.kpop .mem-panel::after{
+  content:'';position:absolute;top:12px;right:14px;width:56px;height:16px;
+  background:
+    radial-gradient(circle at 8px 8px,#FFE45E 6px,#3B1458 6.5px 8px,transparent 8.5px),
+    radial-gradient(circle at 28px 8px,#B8F28A 6px,#3B1458 6.5px 8px,transparent 8.5px),
+    radial-gradient(circle at 48px 8px,#FF7EB9 6px,#3B1458 6.5px 8px,transparent 8.5px);
+}
+html.kpop .fi{border-bottom:2px dashed var(--ink-3);}
+
+/* ── dark bands: grape with a sparkle field ────────────────── */
+html.kpop .mom,
+html.kpop footer{
+  background:
+    radial-gradient(circle at 12% 18%, #FF9ED8 1.5px, transparent 2px),
+    radial-gradient(circle at 72% 40%, #7AD3FF 1.5px, transparent 2px),
+    radial-gradient(circle at 38% 78%, #FFE45E 1.5px, transparent 2px),
+    radial-gradient(circle at 90% 86%, #B8F28A 1.5px, transparent 2px),
+    linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);
+  background-size:180px 180px,220px 220px,160px 160px,240px 240px,auto;
+}
+
+/* ── film band gets a pink tint ─────────────────────────────── */
+html.kpop .film-scrim{background:linear-gradient(180deg,rgba(43,15,76,.55),rgba(255,63,164,.25) 50%,rgba(43,15,76,.8));}
+
+/* ── layers drawn by main.js ────────────────────────────────── */
+.kp-float{position:fixed;inset:0;z-index:60;pointer-events:none;}
+.kp-spark{
+  position:fixed;z-index:400;pointer-events:none;
+  font-size:14px;line-height:1;transform:translate(-50%,-50%);
+  animation:kpSpark .8s ease-out forwards;
+}
+@keyframes kpSpark{
+  from{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0);}
+  to{opacity:0;transform:translate(-50%,calc(-50% + 26px)) scale(.4) rotate(140deg);}
+}
+
+/* scrollbar */
+html.kpop ::-webkit-scrollbar{width:12px;}
+html.kpop ::-webkit-scrollbar-track{background:#FFF1FA;}
+html.kpop ::-webkit-scrollbar-thumb{background:#FF9ED8;border:3px solid #FFF1FA;border-radius:999px;}
+
+@media (max-width:900px){
+  html.kpop .hero::before{top:auto;bottom:22px;right:50%;transform:translateX(50%) rotate(-3deg);animation:none;font-size:12px;padding:8px 13px;}
+  html.kpop .hero::after{display:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  html.kpop .hero::before,html.kpop .hero::after{animation:none;}
+}

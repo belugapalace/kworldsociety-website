@@ -234,6 +234,90 @@
 
     /* Seasonal skin — set by the head script, gone after 26 Dec. */
     var XMAS = document.documentElement.classList.contains('xmas');
+    var KPOP = document.documentElement.classList.contains('kpop');
+    var SKIN = XMAS ? {
+      ringA: ['rgba(230,57,70,0.45)', 'rgba(230,57,70,0.85)', 2, 2.4],
+      ringB: ['rgba(43,168,74,0.35)', 'rgba(43,168,74,0.7)', 2, 2],
+      sphere: ['#C8F0FF', '#5DB8FF', '#2C6FD6'],
+      limb: 'rgba(10,30,80,0.35)', edge: ['rgba(255,255,255,0.7)', 3]
+    } : KPOP ? {
+      ringA: ['rgba(255,63,164,0.5)', 'rgba(255,63,164,0.95)', 3, 3.4],
+      ringB: ['rgba(51,182,245,0.45)', 'rgba(51,182,245,0.9)', 2.6, 3],
+      sphere: ['#FFE3F5', '#FF9ED8', '#9A7BFF'],
+      limb: 'rgba(90,30,140,0.3)', edge: ['#3B1458', 3.5]
+    } : {
+      ringA: ['rgba(138,107,40,0.34)', 'rgba(138,107,40,0.55)', 1, 1.1],
+      ringB: ['rgba(138,107,40,0.18)', 'rgba(138,107,40,0.30)', 1, 1],
+      sphere: ['#3a3363', '#1d1838', '#0b0917'],
+      limb: 'rgba(0,0,0,0.5)', edge: ['rgba(214,188,126,0.28)', 1]
+    };
+
+    /* K-pop mode: the globe gets a face. Drawn right after the sphere so
+       the network and city labels still sit on top of it. */
+    function drawFace(t) {
+      var ey = cy + R * 0.22, ex = R * 0.3, er = R * 0.085;
+      var blink = (t % 4.2) > 4.05;                 // a quick blink every ~4s
+      ctx.save();
+      ctx.globalAlpha = 0.9;
+      for (var s = -1; s <= 1; s += 2) {
+        if (blink) {
+          ctx.beginPath();
+          ctx.moveTo(cx + s * ex - er, ey); ctx.quadraticCurveTo(cx + s * ex, ey + er * 0.8, cx + s * ex + er, ey);
+          ctx.strokeStyle = '#3B1458'; ctx.lineWidth = Math.max(2, R * 0.025); ctx.lineCap = 'round'; ctx.stroke();
+        } else {
+          ctx.beginPath(); ctx.ellipse(cx + s * ex, ey, er * 0.82, er, 0, 0, Math.PI * 2);
+          ctx.fillStyle = '#3B1458'; ctx.fill();
+          ctx.beginPath(); ctx.arc(cx + s * ex - er * 0.28, ey - er * 0.38, er * 0.32, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff'; ctx.fill();
+          ctx.beginPath(); ctx.arc(cx + s * ex + er * 0.3, ey + er * 0.3, er * 0.14, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.beginPath();                            // blush
+        ctx.ellipse(cx + s * ex * 1.55, ey + er * 1.7, er * 1.1, er * 0.6, 0, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,63,164,0.45)'; ctx.fill();
+      }
+      ctx.beginPath();                              // little cat smile
+      var my = ey + er * 1.55, mw = er * 0.75;
+      ctx.moveTo(cx - mw * 2, my);
+      ctx.quadraticCurveTo(cx - mw, my + mw * 1.3, cx, my);
+      ctx.quadraticCurveTo(cx + mw, my + mw * 1.3, cx + mw * 2, my);
+      ctx.strokeStyle = '#3B1458'; ctx.lineWidth = Math.max(2, R * 0.022); ctx.lineCap = 'round'; ctx.stroke();
+      ctx.restore();
+    }
+
+    function heartPath(x, y, s) {
+      ctx.beginPath();
+      ctx.moveTo(x, y + s * 0.9);
+      ctx.bezierCurveTo(x - s * 1.6, y - s * 0.1, x - s * 0.9, y - s * 1.3, x, y - s * 0.45);
+      ctx.bezierCurveTo(x + s * 0.9, y - s * 1.3, x + s * 1.6, y - s * 0.1, x, y + s * 0.9);
+      ctx.closePath();
+    }
+    /* A heart and a star chasing each other round the rings. */
+    function drawOrbiters(t, front) {
+      var items = [[t * 0.5, R * 1.17, 0.36, 'heart'], [t * 0.5 + Math.PI, R * 1.3, -1.16, 'star']];
+      items.forEach(function (it) {
+        var a = it[0], depth = Math.sin(a);
+        if ((depth > 0) !== front) return;
+        var x = cx + it[1] * Math.cos(a), y = cy + it[1] * 0.3 * depth + Math.sin(it[2]) * it[1] * 0.15 * Math.cos(a);
+        var s = R * (front ? 0.085 : 0.06) * (1 + Math.sin(t * 5) * 0.08);
+        ctx.save();
+        ctx.globalAlpha = front ? 1 : 0.7;
+        ctx.lineWidth = 3; ctx.strokeStyle = '#3B1458'; ctx.lineJoin = 'round';
+        if (it[3] === 'heart') {
+          heartPath(x, y, s); ctx.fillStyle = '#FF3FA4'; ctx.fill(); ctx.stroke();
+          ctx.beginPath(); ctx.arc(x - s * 0.5, y - s * 0.4, s * 0.18, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff'; ctx.fill();
+        } else {
+          ctx.beginPath();
+          for (var k = 0; k < 10; k++) {
+            var r = k % 2 ? s * 0.5 : s * 1.15, an = -Math.PI / 2 + k * Math.PI / 5 + t * 0.8;
+            ctx.lineTo(x + r * Math.cos(an), y + r * Math.sin(an));
+          }
+          ctx.closePath(); ctx.fillStyle = '#FFE45E'; ctx.fill(); ctx.stroke();
+        }
+        ctx.restore();
+      });
+    }
 
     /* Santa's sleigh on a tilted orbit. Back half is drawn before the
        sphere so the planet hides it; front half after, crossing over. */
@@ -343,15 +427,16 @@
       ctx.restore();
 
       /* Armillary rings — back halves. */
-      drawRing(R * 1.17,  0.36, false, XMAS ? 'rgba(230,57,70,0.45)' : 'rgba(138,107,40,0.34)', XMAS ? 2 : 1, true);
-      drawRing(R * 1.30, -1.16, false, XMAS ? 'rgba(43,168,74,0.35)' : 'rgba(138,107,40,0.18)', XMAS ? 2 : 1, false);
+      drawRing(R * 1.17,  0.36, false, SKIN.ringA[0], SKIN.ringA[2], true);
+      drawRing(R * 1.30, -1.16, false, SKIN.ringB[0], SKIN.ringB[2], false);
       if (XMAS && !REDUCED) drawSanta(t, false);
+      if (KPOP && !REDUCED) drawOrbiters(t, false);
 
       /* Sphere. */
       var sg = ctx.createRadialGradient(cx - R * 0.32, cy - R * 0.34, 0, cx, cy, R);
-      sg.addColorStop(0,    XMAS ? '#C8F0FF' : '#3a3363');
-      sg.addColorStop(0.45, XMAS ? '#5DB8FF' : '#1d1838');
-      sg.addColorStop(1,    XMAS ? '#2C6FD6' : '#0b0917');
+      sg.addColorStop(0,    SKIN.sphere[0]);
+      sg.addColorStop(0.45, SKIN.sphere[1]);
+      sg.addColorStop(1,    SKIN.sphere[2]);
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.fillStyle = sg;
@@ -370,6 +455,8 @@
         ctx.fill();
         ctx.restore();
       }
+
+      if (KPOP) drawFace(REDUCED ? 0 : t);
 
       /* Constellation lines. */
       for (i = 0; i < LINES.length; i++) {
@@ -526,8 +613,8 @@
         }
 
         if (hov || sel || hq) {
-          ctx.font = '500 10px Archivo, sans-serif';
-          ctx.fillStyle = hq && !lit
+          ctx.font = KPOP ? '400 13px "Bagel Fat One", sans-serif' : '500 10px Archivo, sans-serif';
+          ctx.fillStyle = KPOP ? '#3B1458' : hq && !lit
             ? 'rgba(255,246,226,0.9)'
             : 'rgba(255,250,240,0.96)';
           ctx.fillText(c.name.toUpperCase(), o.x + (hq ? 17 : 13), o.y - 8);
@@ -537,7 +624,7 @@
       /* Limb shading, so the orb reads as a solid object on light ground. */
       var lb = ctx.createRadialGradient(cx, cy, R * 0.72, cx, cy, R);
       lb.addColorStop(0, 'rgba(0,0,0,0)');
-      lb.addColorStop(1, XMAS ? 'rgba(10,30,80,0.35)' : 'rgba(0,0,0,0.5)');
+      lb.addColorStop(1, SKIN.limb);
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.fillStyle = lb;
@@ -545,14 +632,15 @@
 
       ctx.beginPath();
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.strokeStyle = XMAS ? 'rgba(255,255,255,0.7)' : 'rgba(214,188,126,0.28)';
-      ctx.lineWidth = XMAS ? 3 : 1;
+      ctx.strokeStyle = SKIN.edge[0];
+      ctx.lineWidth = SKIN.edge[1];
       ctx.stroke();
 
       /* Armillary rings — front halves. */
-      drawRing(R * 1.17,  0.36, true, XMAS ? 'rgba(230,57,70,0.85)' : 'rgba(138,107,40,0.55)', XMAS ? 2.4 : 1.1, true);
-      drawRing(R * 1.30, -1.16, true, XMAS ? 'rgba(43,168,74,0.7)' : 'rgba(138,107,40,0.30)', XMAS ? 2 : 1, false);
+      drawRing(R * 1.17,  0.36, true, SKIN.ringA[1], SKIN.ringA[3], true);
+      drawRing(R * 1.30, -1.16, true, SKIN.ringB[1], SKIN.ringB[3], false);
       if (XMAS && !REDUCED) drawSanta(t, true);
+      if (KPOP && !REDUCED) drawOrbiters(t, true);
 
       /* A slow sway that keeps the sphere alive without losing the network. */
       if (!drag && tY === null && !REDUCED) {
@@ -758,6 +846,82 @@
       requestAnimationFrame(tick);
     }
     tick();
+  })();
+
+  /* ── K-pop mode: rising hearts & stars, cursor sparkles ───
+     Only while html.kpop is set; skipped for reduced motion. */
+  (function () {
+    if (!document.documentElement.classList.contains('kpop') || REDUCED) return;
+    var c = document.createElement('canvas');
+    c.className = 'kp-float';
+    c.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(c);
+    var x = c.getContext('2d'), w, h, bits = [];
+    function size() {
+      var d = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth; h = window.innerHeight;
+      c.width = w * d; c.height = h * d; c.style.width = w + 'px'; c.style.height = h + 'px';
+      x.setTransform(d, 0, 0, d, 0, 0);
+    }
+    size();
+    window.addEventListener('resize', size);
+    var COLS = ['#FF3FA4', '#FF9ED8', '#7AD3FF', '#C9A7FF', '#B8F28A', '#FFE45E'];
+    var n = w < 600 ? 14 : 26;
+    for (var i = 0; i < n; i++) {
+      bits.push({ x: Math.random() * w, y: Math.random() * h, s: Math.random() * 6 + 5,
+                  v: Math.random() * 0.45 + 0.25, p: Math.random() * 6.3,
+                  k: i % 3, c: COLS[i % COLS.length] });
+    }
+    function heart(px, py, s) {
+      x.beginPath();
+      x.moveTo(px, py + s * 0.9);
+      x.bezierCurveTo(px - s * 1.6, py - s * 0.1, px - s * 0.9, py - s * 1.3, px, py - s * 0.45);
+      x.bezierCurveTo(px + s * 0.9, py - s * 1.3, px + s * 1.6, py - s * 0.1, px, py + s * 0.9);
+    }
+    function star(px, py, s, r) {
+      x.beginPath();
+      for (var k = 0; k < 8; k++) {
+        var rr = k % 2 ? s * 0.32 : s * 1.1, a = r + k * Math.PI / 4;
+        x.lineTo(px + rr * Math.cos(a), py + rr * Math.sin(a));
+      }
+      x.closePath();
+    }
+    function tick() {
+      if (!document.hidden) {
+        x.clearRect(0, 0, w, h);
+        x.lineWidth = 1.6; x.strokeStyle = 'rgba(59,20,88,0.55)';
+        for (var i = 0; i < bits.length; i++) {
+          var b = bits[i];
+          b.y -= b.v; b.p += 0.02; b.x += Math.sin(b.p) * 0.4;
+          if (b.y < -20) { b.y = h + 20; b.x = Math.random() * w; }
+          x.globalAlpha = 0.75;
+          x.fillStyle = b.c;
+          if (b.k === 0) heart(b.x, b.y, b.s);
+          else if (b.k === 1) star(b.x, b.y, b.s, b.p);
+          else { x.beginPath(); x.arc(b.x, b.y, b.s * 0.45, 0, Math.PI * 2); }
+          x.fill(); x.stroke();
+        }
+        x.globalAlpha = 1;
+      }
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    /* sparkle trail on desktop pointers */
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    var GLYPHS = ['♡', '✦', '★', '✧'], last = 0;
+    window.addEventListener('pointermove', function (e) {
+      var now = performance.now();
+      if (now - last < 45) return;
+      last = now;
+      var s = document.createElement('span');
+      s.className = 'kp-spark';
+      s.textContent = GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
+      s.style.color = COLS[(Math.random() * COLS.length) | 0];
+      document.body.appendChild(s);
+      window.setTimeout(function () { s.remove(); }, 820);
+    }, { passive: true });
   })();
 
   /* ── Promo popup: Stray Kids live viewing giveaway ───────
