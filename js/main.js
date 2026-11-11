@@ -7,6 +7,27 @@
 
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ── K-pop mode: the hero tiger turns kawaii and back ───
+     The crest is split into its frame and its tiger. The frame stays;
+     the tiger swaps with a chibi version on a loop (CSS drives it). */
+  (function () {
+    if (!document.documentElement.classList.contains('kpop')) return;
+    var crest = document.querySelector('.crest-hero');
+    if (!crest) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'kp-crest rv';
+    crest.classList.remove('rv');
+    crest.parentNode.insertBefore(wrap, crest);
+    wrap.appendChild(crest);
+    var og = document.createElement('div');
+    og.className = 'kp-og';
+    og.setAttribute('aria-hidden', 'true');
+    wrap.appendChild(og);
+    wrap.insertAdjacentHTML('beforeend',
+      '<svg class="kp-cute" viewBox="0 0 1080 1080" aria-hidden="true" focusable="false"><g class="kp-bob" stroke="#3B1458" stroke-width="13" stroke-linejoin="round" stroke-linecap="round"><path d="M640 742c70 10 108-40 96-112-6-38-8-58 4-72" fill="none" stroke="#3B1458" stroke-width="44"/><path d="M640 742c70 10 108-40 96-112-6-38-8-58 4-72" fill="none" stroke="#FFB45C" stroke-width="20"/><path d="M722 670l26-6M716 620l28 2" fill="none"/><path transform="translate(-28 0)" d="M770 560c-20-16-50-6-44 18 4 18 34 30 44 40 10-10 40-22 44-40 6-24-24-34-44-18z" fill="#FF3FA4" stroke-width="10"/><ellipse cx="540" cy="690" rx="128" ry="118" fill="#FFB45C"/><ellipse cx="540" cy="712" rx="74" ry="80" fill="#FFF3E2" stroke="none"/><path d="M425 650q26 6 34 24M420 700q26 4 36 22M655 650q-26 6-34 24M660 700q-26 4-36 22" fill="none"/><path d="M540 690c-10-12-30-6-28 8 2 10 20 20 28 26 8-6 26-16 28-26 2-14-18-20-28-8z" fill="#FF7EB9" stroke-width="7"/><ellipse cx="478" cy="800" rx="52" ry="32" fill="#FFB45C"/><ellipse cx="602" cy="800" rx="52" ry="32" fill="#FFB45C"/><path d="M466 790v18M490 790v18M590 790v18M614 790v18" fill="none" stroke-width="9"/><ellipse cx="458" cy="676" rx="34" ry="30" fill="#FFB45C"/><ellipse cx="622" cy="676" rx="34" ry="30" fill="#FFB45C"/><circle cx="412" cy="350" r="56" fill="#FFB45C"/><circle cx="668" cy="350" r="56" fill="#FFB45C"/><circle cx="416" cy="356" r="28" fill="#FF9ED8" stroke="none"/><circle cx="664" cy="356" r="28" fill="#FF9ED8" stroke="none"/><ellipse cx="540" cy="465" rx="172" ry="146" fill="#FFB45C"/><ellipse cx="540" cy="535" rx="78" ry="54" fill="#FFF3E2" stroke="none"/><path d="M540 324v40M500 332l8 34M580 332l-8 34" fill="none" stroke-width="15"/><path d="M372 440l42 10M370 482l40 2M708 440l-42 10M710 482l-40 2" fill="none" stroke-width="15"/><g class="kp-eyes" stroke="none"><ellipse cx="476" cy="470" rx="30" ry="37" fill="#3B1458"/><ellipse cx="604" cy="470" rx="30" ry="37" fill="#3B1458"/><circle cx="466" cy="456" r="12" fill="#fff"/><circle cx="594" cy="456" r="12" fill="#fff"/><circle cx="486" cy="486" r="6" fill="#fff"/><circle cx="614" cy="486" r="6" fill="#fff"/></g><ellipse cx="420" cy="530" rx="32" ry="17" fill="#FF7EB9" stroke="none" opacity=".7"/><ellipse cx="660" cy="530" rx="32" ry="17" fill="#FF7EB9" stroke="none" opacity=".7"/><path d="M526 512h28l-14 14z" fill="#FF3FA4" stroke-width="8"/><path d="M506 540q17 22 34 0q17 22 34 0" fill="none" stroke-width="10"/><path d="M700 300l9 22 22 9-22 9-9 22-9-22-22-9 22-9z" fill="#FFE45E" stroke-width="7"/><path d="M380 560l6 14 14 6-14 6-6 14-6-14-14-6 14-6z" fill="#7AD3FF" stroke-width="6"/></g></svg>' +
+      '<span class="kp-poof" aria-hidden="true">\u2726 \u2661 \u2727 \u2605 \u2726 \u2661</span>');
+  })();
+
   /* ── The network ───────────────────────────────────────
      lat/lng are true geographic coordinates.
      tier drives both the registry styling and the globe marker. */
